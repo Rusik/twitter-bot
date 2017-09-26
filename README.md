@@ -1,6 +1,6 @@
 # twitter-bot
 
-#How to use this module
+# How to use this module
 
 The code below demonstrates a simple version of how to use this module. For more thorough examples, see the examples inside the ~./tests/examples directory.
 
@@ -36,9 +36,9 @@ The code above will define a simple twitter bot that tweets the current time eve
 
 This won't work until you enter your authentication keys for twitter. See the Authentication Keys section below. 
 
-#Authentication Keys
+# Authentication Keys
 
-#####Getting your authentication keys
+##### Getting your authentication keys
 
 You will need to get authentication keys for your twitter account from Twitter. You should be careful not to commit these keys--if you do, anyone could potentially gain access to tweet from your account. 
 
@@ -48,7 +48,7 @@ Then, go to [apps.twitter.com](apps.twitter.com) and click 'Create New App.' Thi
 
 Once this is done, it will take you to another page listing the details of your newly-created app. Navigate over to the 'Keys an Access Tokens' tab. Save these keys somewhere safe, preferably outside of your git repository so that they aren't accidentally commited. 
 
-#####Inputting your authentication keys
+##### Inputting your authentication keys
 
 To reduce the liklihood of a security breach, twitter-bot reads in all authentication keys from the process environment. To set your keys for a single instance of your terminal window, write 
 
@@ -60,27 +60,27 @@ export TWITTER_ACCESS_TOKEN_SECRET=<your access token secret here>
 ```
 This will set your keys as environment varialbes local to a single terminal window--they won't be accessible from any other terminal windows and will be lost when that window is closed. See the deploying section for information on how to set these keys in the environment you deploy to. 
 
-#Bot types
+# Bot types
 
 This module supports three commonly supported types of bots: timer bots, reply bots, and search bots. 
 
-#####Timer Bots
+##### Timer Bots
 
 Timer bots are any bot that posts things to twitter at a regular interval. A well known bot like this was [@everyword](https://twitter.com/everyword?lang=en), which tweeted one word from the english dictionary every half hour from 2008 - 2014. For a currently tweeting example, see [@fuckeveryword](https://twitter.com/fuckeveryword?lang=en). 
 
-#####Reply Bots
+##### Reply Bots
 
 Reply bots are bots that look for mentions of their username and reply back, like [@DearAssistant](https://twitter.com/dearassistant), which answers questions directed at it.  
 
-#####Text search bots
+##### Text search bots
 
 Search bots search Twitter for any phrase (or set of phrases) and either reply back or post to their own page, like [@Betelgeuse_3](https://twitter.com/betelgeuse_3) or [@boy2bot](https://twitter.com/boy2bot).
 
-#####Other bots
+##### Other bots
 
 Bots that respond to external events, like [@earthquakesSF](https://twitter.com/earthquakesSF), can just call `twitterBot.tweet()`, the tweeting function built into this module, as appropriate. 
 
-#Content you post
+# Content you post
 
 Make sure that your bot complies with Twitter's policies for general use and for the use of its API:
 https://support.twitter.com/groups/56-policies-violations/topics/236-twitter-rules-policies/articles/18311-the-twitter-rules 
@@ -92,7 +92,7 @@ Twitter REST api description:
 https://dev.twitter.com/rest/public
 
 
-#TwitterBot.prototype.tweet(contentToTweet [,callback, options])
+# TwitterBot.prototype.tweet(contentToTweet [,callback, options])
 
 This tweets a string or file. 
 
@@ -112,17 +112,17 @@ This tweets a string or file.
 
   - **content**: String or Function that returns a String _Determines what will be posted to Twitter. If a function, takes arguments:_
 
-  	-done: _Function, if content function is asynchronous, call done when complete on the string to be posted, like_ `done('tweet this');` 
+    -done: _Function, if content function is asynchronous, call done when complete on the string to be posted, like_ `done('tweet this');` 
   - **callback**: Function _Runs once bot is defined. Takes arguments:_
 
-  	-error: _Error, if any. Is null if the bot was created successfully._
+    -error: _Error, if any. Is null if the bot was created successfully._
     
     -botName: _String, name of the bot created._
   - **options**: Object _Defines the bot's settings._
     * **interval**: Number _How often the bot posts (default 1 hr, minimum 1 minute)._
     * **callback**: Function _Runs each time the bot posts to Twitter. Takes arguments:_
     
-    	-error: _The error, if any. Is null if the post was successful._
+        -error: _The error, if any. Is null if the post was successful._
       
       -data: _The data of the response from Twitter. Text of the tweet can be found at data.text._
       
@@ -134,30 +134,30 @@ This tweets a string or file.
     
     
 
-#TimerBot.prototype.initialize([callback])
+# TimerBot.prototype.initialize([callback])
 
   Starts up a bot so that it will post to Twitter.
 
   - **callback**: Function _Runs after the bot is turned on. Takes arguments:_
 
-  	-running: Boolean, _Says whether the bot is running or not. False if an error occurred._ 
+    -running: Boolean, _Says whether the bot is running or not. False if an error occurred._ 
 
-#TimerBot.prototype.stop([callback])
+# TimerBot.prototype.stop([callback])
     
   Stops the bot from running so that it will no longer post to Twitter. Bot can be turned back on with initialize.
 
   - **callback**: Function _Runs after the bot is turned off. Takes arguments_
 
-  	-running: Boolean, _Says whether the bot is running or not. False if an error occurred._ 
+    -running: Boolean, _Says whether the bot is running or not. False if an error occurred._ 
 
 
-#defineSearchBot(content, stringToSearchFor [, callback, options])
+# defineSearchBot(content, stringToSearchFor [, callback, options])
 
 Attaches a new search bot (a bot that searches for a phrase or set of phrases) to the twitterBot instance.
 
 -**content**: String or a Function that returns a String. _Determines what will be posted to Twitter_.
 
--**stringToSearchFor**: String _Phrase or set of phrases for the bot to match to. See [Twitter's guide](https://dev.twitter.com/streaming/overview/request-parameters#track)._
+-**stringToSearchFor**: String _Phrase or set of phrases for the bot to match to. See [Twitter's guide](https://dev.twitter.com/streaming/overview/request-parameters# track)._
 
 -**callback**: Function
 _Runs after bot is defined._
@@ -171,20 +171,20 @@ _Runs after bot is defined._
   * **tweetOptions**: Object _(see TwitterBot.prototype.tweet)_
   * **callback**: Function _Runs every time the bot posts to Twitter._
   
-#SearchBot.prototype.initialize([callback])
+# SearchBot.prototype.initialize([callback])
   
 Starts the bot running. 
   
 -**callback**: Function _Runs after the bot is turned on._
   
-#SearchBot.prototype.stop([callback])
+# SearchBot.prototype.stop([callback])
   
 Stops the bot from running. Can be turned back on with initialize.
 
 -**callback**: Function _Runs after the bot is turned off._
 
 
-#defineReplyBot(content[, callback, options])
+# defineReplyBot(content[, callback, options])
 
 Attaches a new reply bot (a bot that replies to mentions) to the twitterBot instance.
 
@@ -212,18 +212,18 @@ _Runs after bot is defined. Takes arguments:_
     
   -response: Object. _The response object from Twitter._
     
-#SearchBot.prototype.initialize([callback])
+# SearchBot.prototype.initialize([callback])
   
 Starts the bot running. 
   
 -**callback**: Function. _Runs after the bot is turned on. Takes arguments:_
-	
+    
   -running: Boolean. _Says whether the bot is running or not. False if an error occurred._ 
   
-#SearchBot.prototype.stop([callback])
+# SearchBot.prototype.stop([callback])
   
 Stops the bot from running. Can be turned back on with initialize.
 
 -**callback**: Function. _Runs after the bot is turned off. Takes arguments:_
-	
+    
   -running: Boolean, _Says whether the bot is running or not. False if an error occurred._ 
